@@ -18,7 +18,7 @@ public class MenuManager : MonoBehaviour
     
     public void Jugar()
     {
-        SceneManager.LoadScene("SampleScene"); 
+        SceneManager.LoadScene("Nivel 1");
     }
 
   

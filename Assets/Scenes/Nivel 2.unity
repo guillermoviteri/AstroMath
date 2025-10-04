@@ -759,13 +759,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   lives: 3
+  scoreParaGanar: 10
+  siguienteEscena: Nivel2
   scoreText: {fileID: 653700064}
   livesText: {fileID: 638723710}
   pointFinal: {fileID: 1465523557}
   gameOverPanel: {fileID: 1532747725}
+  victoryPanel: {fileID: 0}
   gameMusic: {fileID: 8300000, guid: 4c82e9faeaca30e4da8ab67ba24e6919, type: 3}
   correctAnswerSound: {fileID: 8300000, guid: 0c6f91d0c6f5d37488d686ffff7e168b, type: 3}
   wrongAnswerSound: {fileID: 8300000, guid: f34aaac7c80889c478060572a3fb5b06, type: 3}
+  victorySound: {fileID: 0}
 --- !u!4 &530637154
 Transform:
   m_ObjectHideFlags: 0
@@ -2129,8 +2133,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20.251, y: -44.672}
-  m_SizeDelta: {x: 1745.803, y: 989.151}
+  m_AnchoredPosition: {x: -4.965, y: -29.828}
+  m_SizeDelta: {x: 1682.854, y: 959.465}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532747727
 MonoBehaviour:
@@ -2152,7 +2156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9af84a072d63755458662994aebfe7cb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f64a2bd4645fd374a83a003f38d16660, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
