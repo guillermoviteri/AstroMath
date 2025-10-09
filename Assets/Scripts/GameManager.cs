@@ -8,23 +8,23 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public int score = 0;
     public int lives = 3;
+    public int initialLives = 3; // Guardar el número inicial de vidas
 
     [Header("Configuración de Victoria")]
-    public int scoreParaGanar = 10; // Puntaje requerido para ganar
-    public string siguienteEscena = "Nivel2"; // Nombre de la siguiente escena
+    public int scoreParaGanar = 10;
+    public string siguienteEscena = "Nivel2";
 
     [Header("UI Elements")]
     public TMP_Text scoreText;
     public TMP_Text livesText;
     public TMP_Text pointFinal;
     public GameObject gameOverPanel;
-    public GameObject victoryPanel; // Panel de victoria
+    public GameObject victoryPanel;
 
     [Header("Audio")]
     public AudioClip gameMusic;
     public AudioClip correctAnswerSound;
     public AudioClip wrongAnswerSound;
-    //public AudioClip victorySound; // Sonido de victoria
     private AudioSource audioSource;
 
     void Awake()
@@ -37,14 +37,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Obtener o agregar el componente AudioSource
+        initialLives = lives; // Guardar vidas iniciales
+
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        // Configurar y reproducir la música
         if (gameMusic != null)
         {
             audioSource.clip = gameMusic;
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         UpdateUI();
         UpdateFinal();
         gameOverPanel.SetActive(false);
-        victoryPanel.SetActive(false); // Asegurar que el panel de victoria esté oculto
+        victoryPanel.SetActive(false);
         Time.timeScale = 1;
     }
 
@@ -65,13 +65,11 @@ public class GameManager : MonoBehaviour
         UpdateUI();
         UpdateFinal();
 
-        // Reproducir sonido de respuesta correcta
         if (correctAnswerSound != null)
         {
             audioSource.PlayOneShot(correctAnswerSound);
         }
 
-        // Verificar si el jugador ganó
         CheckVictory();
     }
 
@@ -80,58 +78,41 @@ public class GameManager : MonoBehaviour
         lives--;
         UpdateUI();
 
-        // Reproducir sonido de respuesta incorrecta
         if (wrongAnswerSound != null)
         {
             audioSource.PlayOneShot(wrongAnswerSound);
         }
 
         if (lives <= 0)
-            GameOver();
-    }
-
-    void UpdateFinal()
-    {
-        pointFinal.text = "Ecuaciones correctas: " + score;
-    }
-
-    void UpdateUI()
-    {
-        scoreText.text = "Puntos: " + score + " / " + scoreParaGanar; // Mostrar progreso
-        livesText.text = "Vidas: " + lives;
-    }
-
-    void CheckVictory()
-    {
-        // Verificar si el puntaje alcanzó el objetivo
-        if (score >= scoreParaGanar)
         {
-            Victory();
+            // Verificar si puede mostrar última oportunidad
+            if (LastChanceManager.instance.CanShowLastChance())
+            {
+                LastChanceManager.instance.ShowLastChance();
+            }
+            else
+            {
+                GameOver();
+            }
         }
     }
 
-    void Victory()
+    // Nuevo método para revivir con todas las vidas
+    public void ReviveWithFullLives()
     {
-        // Detener la música del juego
-        if (audioSource != null && audioSource.isPlaying)
+        lives = initialLives;
+        UpdateUI();
+
+        // Reproducir sonido de éxito si lo deseas
+        if (correctAnswerSound != null)
         {
-            audioSource.Stop();
+            audioSource.PlayOneShot(correctAnswerSound);
         }
-
-        // Reproducir sonido de victoria
-        /*if (victorySound != null)
-        {
-            audioSource.PlayOneShot(victorySound);
-        }*/
-
-        // Mostrar panel de victoria
-        victoryPanel.SetActive(true);
-        Time.timeScale = 0;
     }
 
-    void GameOver()
+    // Cambiar GameOver a público para que LastChanceManager pueda llamarlo
+    public void GameOver()
     {
-        // Detener la música cuando el juego termina
         if (audioSource != null && audioSource.isPlaying)
         {
             audioSource.Stop();
@@ -141,12 +122,39 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    // Método para pasar al siguiente nivel
+    void UpdateFinal()
+    {
+        pointFinal.text = "Ecuaciones correctas: " + score;
+    }
+
+    void UpdateUI()
+    {
+        scoreText.text = "Puntos: " + score + " / " + scoreParaGanar;
+        livesText.text = "Vidas: " + lives;
+    }
+
+    void CheckVictory()
+    {
+        if (score >= scoreParaGanar)
+        {
+            Victory();
+        }
+    }
+
+    void Victory()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+        victoryPanel.SetActive(true);
+        Time.timeScale = 0;
+    }
+
     public void NextLevel()
     {
-        Time.timeScale = 1; // Restaurar escala de tiempo
-
-        // Verificar si la escena existe
+        Time.timeScale = 1;
         if (SceneExists(siguienteEscena))
         {
             SceneManager.LoadScene(siguienteEscena);
@@ -154,18 +162,16 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("La escena '" + siguienteEscena + "' no existe. Volviendo al menú principal.");
-            // Puedes cargar una escena por defecto o mostrar un mensaje
             SceneManager.LoadScene("MenuPrincipal");
         }
     }
 
     public void RestartGame()
     {
-        Time.timeScale = 1; // Restaurar escala de tiempo
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // Método para verificar si una escena existe
     private bool SceneExists(string sceneName)
     {
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)

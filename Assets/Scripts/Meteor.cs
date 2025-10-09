@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+
 public class Meteor : MonoBehaviour
 {
     public float minSpeed = 1f;
@@ -27,6 +28,12 @@ public class Meteor : MonoBehaviour
         return correctAnswer;
     }
 
+    // Nuevo método para obtener el texto de la ecuación
+    public string GetEquationText()
+    {
+        return operation + " = ?";
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Bullet"))
@@ -42,6 +49,7 @@ public class Meteor : MonoBehaviour
             GameManager.instance.LoseLife();
         }
     }
+
     public void IncreaseSpeed(float multiplier)
     {
         GetComponent<Rigidbody2D>().linearVelocity *= multiplier;

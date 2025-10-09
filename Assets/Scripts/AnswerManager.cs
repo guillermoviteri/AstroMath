@@ -3,13 +3,16 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+
 public class AnswerManager : MonoBehaviour
 {
     public static AnswerManager instance;
     public GameObject answerButtonPrefab;
     public Transform answersPanel;
     public GameObject answersPanelObject;
-    public TMP_Text timerText; 
+    public TMP_Text timerText;
+    public TMP_Text equationText; // Nuevo texto para mostrar la ecuación
+
     private List<GameObject> answerButtons = new List<GameObject>();
     private int correctAnswer;
     private Meteor currentMeteor;
@@ -28,6 +31,7 @@ public class AnswerManager : MonoBehaviour
     {
         answersPanelObject.SetActive(false);
         timerText.gameObject.SetActive(false);
+        equationText.gameObject.SetActive(false); // Ocultar texto de ecuación al inicio
     }
 
     public void ShowAnswers(Meteor meteor)
@@ -36,6 +40,10 @@ public class AnswerManager : MonoBehaviour
         correctAnswer = meteor.GetCorrectAnswer();
         answersPanelObject.SetActive(true);
         timerText.gameObject.SetActive(true);
+        equationText.gameObject.SetActive(true); // Mostrar texto de ecuación
+
+        // Mostrar la ecuación del meteorito
+        equationText.text = meteor.GetEquationText();
 
         // Reiniciar temporizador
         timeRemaining = 5f;
@@ -129,6 +137,7 @@ public class AnswerManager : MonoBehaviour
     {
         answersPanelObject.SetActive(false);
         timerText.gameObject.SetActive(false);
+        equationText.gameObject.SetActive(false); // Ocultar texto de ecuación
         Time.timeScale = 1f;
     }
 
