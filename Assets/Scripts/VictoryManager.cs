@@ -9,10 +9,27 @@ public class VictoryManager : MonoBehaviour
     public Button btnMenuPrincipal;
 
     [Header("Configuración de Escenas")]
-    public string siguienteNivel; // Define el nombre de la siguiente escena en el Inspector
+    public string siguienteNivel;
+
+    [Header("Audio")] // NUEVO
+    public AudioClip victorySound; // NUEVO
+    private AudioSource audioSource; // NUEVO
 
     void Start()
     {
+        // NUEVO: Configurar AudioSource
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        // NUEVO: Reproducir sonido de victoria
+        if (victorySound != null)
+        {
+            audioSource.PlayOneShot(victorySound);
+        }
+
         // Configurar los listeners de los botones
         btnSiguienteNivel.onClick.AddListener(IrAlSiguienteNivel);
         btnMenuPrincipal.onClick.AddListener(IrAlMenu);
@@ -20,7 +37,6 @@ public class VictoryManager : MonoBehaviour
 
     public void IrAlSiguienteNivel()
     {
-        // Verificar si se definió una escena siguiente
         if (!string.IsNullOrEmpty(siguienteNivel))
         {
             SceneManager.LoadScene(siguienteNivel);
@@ -28,7 +44,6 @@ public class VictoryManager : MonoBehaviour
         else
         {
             Debug.LogWarning("No se ha definido una escena siguiente en el Inspector");
-            // Opcional: cargar una escena por defecto o mostrar mensaje
             SceneManager.LoadScene("Menu");
         }
     }

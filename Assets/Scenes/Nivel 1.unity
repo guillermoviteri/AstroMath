@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &81980754
 RectTransform:
   m_ObjectHideFlags: 0
@@ -732,7 +732,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1418,14 +1418,14 @@ MonoBehaviour:
   score: 0
   lives: 3
   initialLives: 3
-  scoreParaGanar: 3
+  scoreParaGanar: 6
   siguienteEscena: Nivel2
   scoreText: {fileID: 653700064}
   livesText: {fileID: 638723710}
   pointFinal: {fileID: 1465523557}
   gameOverPanel: {fileID: 1532747725}
   victoryPanel: {fileID: 869443748}
-  gameMusic: {fileID: 8300000, guid: 4c82e9faeaca30e4da8ab67ba24e6919, type: 3}
+  gameMusic: {fileID: 8300000, guid: 5cb5946ec0fc8ba418208e1fc7afe13b, type: 3}
   correctAnswerSound: {fileID: 8300000, guid: 0c6f91d0c6f5d37488d686ffff7e168b, type: 3}
   wrongAnswerSound: {fileID: 8300000, guid: f34aaac7c80889c478060572a3fb5b06, type: 3}
 --- !u!4 &530637154
@@ -2502,7 +2502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &869443749
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2579,6 +2579,7 @@ MonoBehaviour:
   btnSiguienteNivel: {fileID: 1201578905}
   btnMenuPrincipal: {fileID: 1547816005}
   siguienteNivel: Nivel 2
+  victorySound: {fileID: 8300000, guid: b36af1686ce41ac4389fcd8e16bb5bcb, type: 3}
 --- !u!1 &1060792762
 GameObject:
   m_ObjectHideFlags: 0
@@ -3595,6 +3596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btnReiniciar: {fileID: 530732038}
   btnMenuPrincipal: {fileID: 1114400084}
+  gameOverSound: {fileID: 8300000, guid: 293c3e38d49e94940beec1ac388a8ddf, type: 3}
 --- !u!1 &1542007253
 GameObject:
   m_ObjectHideFlags: 0
