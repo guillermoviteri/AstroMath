@@ -74,7 +74,7 @@ public class AnswerManager : MonoBehaviour
         foreach (int answer in answers)
         {
             GameObject button = Instantiate(answerButtonPrefab, answersPanel);
-            button.GetComponentInChildren<Text>().text = answer.ToString();
+            button.GetComponentInChildren<TMP_Text>().text = answer.ToString();
 
             int currentAnswer = answer;
             button.GetComponent<Button>().onClick.AddListener(() => OnAnswerSelected(currentAnswer));

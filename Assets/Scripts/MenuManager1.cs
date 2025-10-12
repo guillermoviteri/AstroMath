@@ -38,20 +38,22 @@ public class MenuManager1 : MonoBehaviour
         // Pequeño delay al inicio
         yield return new WaitForSeconds(0.5f);
 
+        // Escala objetivo mayor (1.2 = 20% más grande)
+        Vector3 escalaGrande = new Vector3(2f, 2f, 2f);
+
         // Animación del botón Jugar
-        botonJugar.transform.DOScale(Vector3.one, duracionAnimacion)
-            .SetEase(Ease.OutBack) // Efecto de rebote
+        botonJugar.transform.DOScale(escalaGrande, duracionAnimacion)
+            .SetEase(Ease.OutBack)
             .SetDelay(0f);
 
         // Delay entre botones
         yield return new WaitForSeconds(delayEntreBotones);
 
         // Animación del botón Salir
-        botonSalir.transform.DOScale(Vector3.one, duracionAnimacion)
-            .SetEase(Ease.OutBack) // Efecto de rebote
+        botonSalir.transform.DOScale(escalaGrande, duracionAnimacion)
+            .SetEase(Ease.OutBack)
             .SetDelay(0f);
     }
-
     void ConfigurarEventosBotones()
     {
         // Evento para el botón Jugar
