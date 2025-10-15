@@ -27,14 +27,26 @@ public class LastChanceManager : MonoBehaviour
     void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject); // Opcional: si quieres que persista entre escenas
+        }
         else
+        {
             Destroy(gameObject);
+        }
     }
 
     void Start()
     {
         lastChancePanel.SetActive(false);
+        // Verificar referencias críticas
+        if (equationText == null)
+            equationText = lastChancePanel.GetComponentInChildren<TMP_Text>();
+        if (timerText == null)
+            timerText = lastChancePanel.GetComponentInChildren<TMP_Text>();
+        if (answersPanel == null)
+            answersPanel = lastChancePanel.transform.Find("AnswersPanel");
     }
 
     public bool CanShowLastChance()
@@ -56,7 +68,11 @@ public class LastChanceManager : MonoBehaviour
 
     void GenerateComplexEquation()
     {
-        // Generar una ecuación más compleja con 3 operaciones
+        if (equationText == null)
+        {
+            Debug.LogError("equationText no está asignado en LastChanceManager");
+            return;
+        } // Generar una ecuación más compleja con 3 operaciones
         int num1 = Random.Range(1, 10);
         int num2 = Random.Range(1, 10);
         int num3 = Random.Range(1, 10);
@@ -121,6 +137,11 @@ public class LastChanceManager : MonoBehaviour
     void GenerateAnswers()
     {
         ClearAnswers();
+        if (answerButtonPrefab == null)
+        {
+            Debug.LogError("AnswerButtonPrefab is not assigned in LastChanceManager!");
+            return;
+        }
 
         List<int> answers = new List<int> { correctAnswer };
 

@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 1; // Asegurar que esté en 1
         if (SceneExists(siguienteEscena))
         {
             SceneManager.LoadScene(siguienteEscena);
