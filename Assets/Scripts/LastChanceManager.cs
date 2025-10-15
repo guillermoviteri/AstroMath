@@ -72,13 +72,15 @@ public class LastChanceManager : MonoBehaviour
         {
             Debug.LogError("equationText no está asignado en LastChanceManager");
             return;
-        } // Generar una ecuación más compleja con 3 operaciones
+        }
+
+        // Generar una ecuación más compleja con 3 operaciones
         int num1 = Random.Range(1, 10);
         int num2 = Random.Range(1, 10);
         int num3 = Random.Range(1, 10);
 
-        // Elegir operaciones aleatorias
-        string[] operations = { "+", "-", "*", "/" };
+        // Elegir operaciones aleatorias (sin división)
+        string[] operations = { "+", "-", "*" }; // Eliminada la división "/"
         string op1 = operations[Random.Range(0, operations.Length)];
         string op2 = operations[Random.Range(0, operations.Length)];
 

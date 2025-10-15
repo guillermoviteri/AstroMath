@@ -17,7 +17,7 @@ public class AnswerManager : MonoBehaviour
     private int correctAnswer;
     private Meteor currentMeteor;
     private Coroutine timerCoroutine;
-    private float timeRemaining = 5f;
+    private float timeRemaining = 8f;
 
     void Awake()
     {
@@ -46,7 +46,7 @@ public class AnswerManager : MonoBehaviour
         equationText.text = meteor.GetEquationText();
 
         // Reiniciar temporizador
-        timeRemaining = 5f;
+        timeRemaining = 8f;
         timerText.text = timeRemaining.ToString("F1");
 
         // Iniciar corrutina del temporizador

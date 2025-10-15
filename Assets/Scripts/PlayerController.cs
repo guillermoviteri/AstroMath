@@ -5,7 +5,6 @@ public class PlayerController : MonoBehaviour
     public float speed = 8f;
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float fireRate = 0.5f;
     public AudioClip shootSound; // Agregar esta variable para el sonido de disparo
     private float nextFire = 0f;
     private AudioSource audioSource; // Referencia al AudioSource
@@ -20,6 +19,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     void Update()
     {
         // Movimiento horizontal
@@ -30,10 +30,9 @@ public class PlayerController : MonoBehaviour
         float clampedX = Mathf.Clamp(transform.position.x, -8f, 8f);
         transform.position = new Vector2(clampedX, transform.position.y);
 
-        // Disparar con barra espaciadora
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
+        // Disparar con barra espaciadora (sin delay)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            nextFire = Time.time + fireRate;
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
             // Reproducir sonido de disparo
@@ -43,6 +42,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
